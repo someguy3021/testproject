@@ -9,8 +9,8 @@ import { Todo } from './entities/todo.entity';
 export class TodosService {
   constructor(
     @InjectRepository(Todo)
-    private repository: Repository<Todo>
-  ){}
+    private repository: Repository<Todo>,
+  ) {}
 
   create(data: CreateTodoDto) {
     return this.repository.save(data);
@@ -21,11 +21,11 @@ export class TodosService {
   }
 
   findOne(id: number) {
-    return this.repository.findOneBy({id});
+    return this.repository.findOneBy({ id });
   }
 
   update(id: number, data: UpdateTodoDto) {
-    return this.repository.save({...data, id});
+    return this.repository.save({ ...data, id });
   }
 
   async remove(id: number) {

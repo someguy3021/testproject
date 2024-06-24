@@ -9,20 +9,19 @@ import { ApiProperty } from '@nestjs/swagger';
 
 @Entity()
 export class Todo {
-    @ApiProperty()
-    @PrimaryGeneratedColumn()
-    id: number;
-  
-    @ApiProperty()
-    @Column()
-    user_id: number;
-  
-    @ApiProperty()
-    @Column()
-    text: string;
+  @ApiProperty()
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @ApiProperty()
-    @Column({ default: false })
-    is_done: boolean;
+  @ApiProperty()
+  @Column()
+  user_id: number;
 
+  @ApiProperty()
+  @Column()
+  text: string;
+
+  @ApiProperty()
+  @Column({ default: false })
+  is_done: boolean;
 }

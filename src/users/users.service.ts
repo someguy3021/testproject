@@ -10,8 +10,8 @@ import { User } from './entities/user.entity';
 export class UsersService {
   constructor(
     @InjectRepository(User)
-    private repository: Repository<User>
-  ){}
+    private repository: Repository<User>,
+  ) {}
 
   async register(data: CreateUserDto) {
     const saltOrRounds = 10;
@@ -20,8 +20,8 @@ export class UsersService {
   }
 
   async login(data: CreateUserDto) {
-    const user = await this.repository.findOneBy({name: data.name});
-    if (!user){
+    const user = await this.repository.findOneBy({ name: data.name });
+    if (!user) {
       return false;
     }
     return await bcrypt.compare(data.password, user.password);
@@ -32,11 +32,11 @@ export class UsersService {
   }
 
   findOne(name: string) {
-    return this.repository.findOneBy({name});
+    return this.repository.findOneBy({ name });
   }
 
   update(id: number, data: UpdateUserDto) {
-    return this.repository.save({...data, id});
+    return this.repository.save({ ...data, id });
   }
 
   async remove(id: number) {

@@ -13,7 +13,7 @@ import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    TodosModule, 
+    TodosModule,
     UsersModule,
     TypeOrmModule.forRoot({
       type: 'mysql',

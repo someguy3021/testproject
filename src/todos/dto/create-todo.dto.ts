@@ -1,14 +1,14 @@
-import { ApiProperty } from "@nestjs/swagger"
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateTodoDto {
-    @ApiProperty({
-        description:'Туду-ID',
-        minimum: 1
-    })
-    id: number
+  @ApiProperty({
+    description: 'Туду-ID',
+    minimum: 1,
+  })
+  id: number;
 
-    @ApiProperty({
-        description:'Туду-имя пользователя'
-    })
-    name: string
+  @ApiProperty({
+    description: 'Туду-имя пользователя',
+  })
+  name: string;
 }
