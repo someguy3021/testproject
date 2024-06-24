@@ -7,13 +7,16 @@ import {
   Param,
   Delete,
   UseGuards,
+  ParseIntPipe,
+  UsePipes
 } from '@nestjs/common';
 import { TodosService } from './todos.service';
-import { CreateTodoDto } from './dto/create-todo.dto';
+import { CreateTodoDto, CreateTodoSchema } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiTags, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { Todo as todoEntity } from './entities/todo.entity';
+import { JoiValidationPipe } from '../pipes/ValidationPipe';
 
 @ApiTags('Todos')
 @ApiBearerAuth()
@@ -28,6 +31,7 @@ export class TodosController {
   })
   @ApiResponse({ status: 401, description: 'Неавторизовано' })
   @Post()
+  @UsePipes(new JoiValidationPipe(CreateTodoSchema))
   create(@Body() createTodoDto: CreateTodoDto) {
     return this.todosService.create(createTodoDto);
   }
@@ -49,7 +53,7 @@ export class TodosController {
     type: todoEntity,
   })
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', ParseIntPipe) id: string) {
     return this.todosService.findOne(+id);
   }
 
@@ -60,6 +64,7 @@ export class TodosController {
   })
   @UseGuards(AuthGuard('jwt'))
   @Patch(':id')
+  @UsePipes(new JoiValidationPipe(CreateTodoSchema))
   update(@Param('id') id: string, @Body() updateTodoDto: UpdateTodoDto) {
     return this.todosService.update(+id, updateTodoDto);
   }

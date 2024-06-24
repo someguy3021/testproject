@@ -5,12 +5,14 @@ import {
   Post,
   Body,
   Request,
+  UsePipes
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { UsersService } from './users/users.service';
 import { AuthService } from './auth/auth.service';
-import { CreateUserDto } from './users/dto/create-user.dto';
+import { CreateUserDto, CreateUserSchema } from './users/dto/create-user.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { JoiValidationPipe } from './pipes/ValidationPipe';
 
 @Controller()
 export class AppController {
@@ -21,6 +23,7 @@ export class AppController {
   ) {}
 
   @Post('auth/register')
+  @UsePipes(new JoiValidationPipe(CreateUserSchema))
   register(@Body() createUserDto: CreateUserDto) {
     return this.usersService.register(createUserDto);
   }
