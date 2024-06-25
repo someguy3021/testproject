@@ -14,11 +14,11 @@ export class Todo {
   id: number;
 
   @ApiProperty()
-  @Column()
+  @Column({ default: 1 })
   user_id: number;
 
   @ApiProperty()
-  @Column()
+  @Column({ default: "test" })
   text: string;
 
   @ApiProperty()

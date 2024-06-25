@@ -21,4 +21,48 @@ describe('AppController (e2e)', () => {
       .expect(200)
       .expect('Hello World!');
   });
+
+  it('/todos (GET)', () => {
+    return request(app.getHttpServer()).get('/todos').expect(401);
+  });
+
+  it('/todos/1 (GET)', () => {
+    return request(app.getHttpServer())
+      .get('/todos/1')
+      .expect(200)
+      .expect(res => {
+        expect(res.body).toEqual(
+          expect.objectContaining({
+            id: expect.any(Number),
+            text: expect.any(String),
+          }),
+        );
+      })
+  });
+
+  it('/todos (POST)', () => {
+    return request(app.getHttpServer())
+    .post('/todos')
+    .send({ name: 'Новый туду' })
+    .expect(201)
+    .expect(res => {
+      expect(res.body).toEqual(
+        expect.objectContaining({
+          id: expect.any(Number),
+          text: expect.any(String),
+        }),
+      );
+    })
+  });
+
+  it('/todos/1 (DELETE)', () => {
+    return request(app.getHttpServer())
+      .delete('/todos/1')
+      .expect(401);
+  });
+
+  afterAll((done) => {
+    app.close();
+    done();
+  });
 });
